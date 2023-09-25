@@ -1,0 +1,21 @@
+version: "3.2"
+services:
+  postgres:
+    hostname: postgres
+    ports:
+    - "5432:5432"
+    image: postgres:16
+    volumes:
+    - ./database/dbinit/schema.sql:/docker-entrypoint-initdb.d/a.sql
+    - ./database/dbinit/auth.sql:/docker-entrypoint-initdb.d/b.sql
+    environment:
+    - POSTGRES_DB=kuberoke
+    - POSTGRES_USER=admin
+    - POSTGRES_PASSWORD=Password123
+  redis:
+    hostname: redis
+    ports:
+    - "6379:6379"
+    image: redis:7.2.1
+    volumes:
+    - ./redis-volume:/data
